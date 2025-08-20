@@ -5,7 +5,6 @@ import {
   signInWithPopup, 
   GoogleAuthProvider,
   OAuthProvider,
-  linkWithCredential,
   signOut,
   onAuthStateChanged
 } from 'firebase/auth';
@@ -19,7 +18,6 @@ const Auth = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
-  const [pendingCredential, setPendingCredential] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -56,18 +54,6 @@ const Auth = () => {
       console.log('Attempting Google sign-in...');
       const result = await signInWithPopup(auth, provider);
       console.log('Google sign-in successful:', result.user);
-      
-      // Check if we have a pending Microsoft credential to link
-      if (pendingCredential) {
-        try {
-          await linkWithCredential(result.user, pendingCredential);
-          setPendingCredential(null);
-          console.log('Successfully linked Microsoft account');
-        } catch (linkError) {
-          console.error('Error linking accounts:', linkError);
-          setError('Error linking accounts. Please try again.');
-        }
-      }
     } catch (error) {
       console.error('Google sign-in error:', error);
       setError(getErrorMessage(error.code));
@@ -82,27 +68,12 @@ const Auth = () => {
 
     try {
       const provider = new OAuthProvider('microsoft.com');
-      // Add scopes for Microsoft Graph API access if needed
-      provider.addScope('user.read');
-      provider.addScope('email');
-      provider.addScope('profile');
-      
       console.log('Attempting Microsoft sign-in...');
       const result = await signInWithPopup(auth, provider);
       console.log('Microsoft sign-in successful:', result.user);
-      
-      // Clear any pending credential
-      setPendingCredential(null);
     } catch (error) {
       console.error('Microsoft sign-in error:', error);
-      
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        // Store the pending Microsoft credential
-        setPendingCredential(error.credential);
-        setError('An account with this email already exists with a different sign-in method. Please sign in with your existing method first.');
-      } else {
-        setError(getErrorMessage(error.code));
-      }
+      setError(getErrorMessage(error.code));
     } finally {
       setLoading(false);
     }
@@ -111,8 +82,6 @@ const Auth = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      // Clear pending credential on sign out
-      setPendingCredential(null);
     } catch (error) {
       setError('Error signing out: ' + error.message);
     }
@@ -132,10 +101,8 @@ const Auth = () => {
         return 'Please enter a valid email address.';
       case 'auth/popup-closed-by-user':
         return 'Sign-in popup was closed. Please try again.';
-      case 'auth/account-exists-with-different-credential':
-        return 'An account already exists with the same email address but different sign-in credentials.';
       case 'auth/operation-not-allowed':
-        return 'Microsoft sign-in is not enabled. Please contact support.';
+        return 'Sign-in is not enabled. Please contact support.';
       case 'auth/network-request-failed':
         return 'Network error. Please check your internet connection.';
       case 'auth/popup-blocked':
