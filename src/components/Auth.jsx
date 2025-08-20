@@ -83,10 +83,6 @@ const Auth = () => {
     try {
       const provider = new OAuthProvider('microsoft.com');
       // Add scopes for Microsoft Graph API access if needed
-      provider.setCustomParameters({
-        prompt: "consent",
-        tenant: "the tenant id provided by outlook",
-      })
       provider.addScope('user.read');
       provider.addScope('email');
       provider.addScope('profile');
