@@ -1,0 +1,180 @@
+.auth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: white;
+  padding: 20px;
+}
+
+.auth-card {
+  background: white;
+  border: 1px solid #000;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.auth-header h2 {
+  color: #000;
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.auth-header p {
+  color: #666;
+  margin: 0;
+  font-size: 14px;
+}
+
+.error-message {
+  background: #f0f0f0;
+  color: #000;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #000;
+  font-size: 14px;
+}
+
+.auth-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  background: white;
+  color: #000;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.auth-button:hover:not(:disabled) {
+  background: #000;
+  color: white;
+}
+
+.auth-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-button.google {
+  background: #4285f4;
+  color: white;
+  border-color: #4285f4;
+}
+
+.auth-button.google:hover:not(:disabled) {
+  background: #3367d6;
+  border-color: #3367d6;
+  color: white;
+}
+
+.auth-button.microsoft {
+  background: #00a4ef;
+  color: white;
+  border-color: #00a4ef;
+}
+
+.auth-button.microsoft:hover:not(:disabled) {
+  background: #0078d4;
+  border-color: #0078d4;
+  color: white;
+}
+
+.oauth-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.oauth-buttons .auth-button {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.google-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.microsoft-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #000;
+}
+
+.divider span {
+  background: white;
+  padding: 0 15px;
+  color: #000;
+  font-size: 14px;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auth-footer p {
+  color: #000;
+  margin: 0;
+  font-size: 14px;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 5px;
+  font-size: 14px;
+}
